@@ -5,7 +5,7 @@ services:
     image: timescale/timescaledb:latest-pg14 # Using PostgreSQL 14 base
     container_name: trades_timescaledb
     ports:
-      - "5432:5432" # Default PostgreSQL port
+      - "5433:5432" # Host port 5433 maps to container port 5432
     environment:
       POSTGRES_USER: tradeuser
       POSTGRES_PASSWORD: tradepassword
