@@ -418,7 +418,7 @@ bool FetchLastSyncTimes() {
     int len = StringToCharArray(payload, postData);
     ArrayResize(postData, len + 1); postData[len] = 0;
 
-    string headers = "Content-Type: application/json\r\nAccept: application/json\r\n";
+    string headers = "Content-Type: application/json\r\n"; // Simplified headers
     ResetLastError();
     int resHttpCode = WebRequest("POST", url, headers, 5000, postData, responseData, responseHeaders);
 
@@ -469,7 +469,7 @@ bool PostJsonData(string endpointPath, string jsonDataPayload) {
     ArrayResize(postData, payloadLength + 1);
     postData[payloadLength] = 0;
 
-    string headers = "Content-Type: application/json\r\nAccept: application/json\r\n";
+    string headers = "Content-Type: application/json\r\n"; // Simplified headers
 
     ResetLastError();
     int timeout = 10000; // Increased timeout for potentially larger batches
