@@ -477,9 +477,9 @@ bool PostJsonData(string endpointPath, string jsonDataPayload) {
 //+------------------------------------------------------------------+
 //| Format an Order Record to JSON                                   |
 //+------------------------------------------------------------------+
-string FormatOrderRecordJson(int ticket, ENUM_ORDER_SELECT_MODE mode) {
-    if (!OrderSelect(ticket, SELECT_BY_TICKET, mode)) {
-        Print("TradesDataSenderEA: FormatOrderRecordJson: Failed to select order #", ticket, " in mode ", mode);
+string FormatOrderRecordJson(int ticket, int pool_mode) { // Changed ENUM_ORDER_SELECT_MODE to int pool_mode
+    if (!OrderSelect(ticket, SELECT_BY_TICKET, pool_mode)) { // Use pool_mode here
+        Print("TradesDataSenderEA: FormatOrderRecordJson: Failed to select order #", ticket, " in pool_mode ", pool_mode);
         return "null"; // Return JSON null on failure
     }
 
@@ -498,7 +498,7 @@ string FormatOrderRecordJson(int ticket, ENUM_ORDER_SELECT_MODE mode) {
     json += "\"stopLoss\":"      + DoubleToString(OrderStopLoss(), symDigits) + ",";
     json += "\"takeProfit\":"    + DoubleToString(OrderTakeProfit(), symDigits) + ",";
 
-    if (mode == MODE_TRADES) {
+    if (pool_mode == MODE_TRADES) { // Check against pool_mode
         json += "\"currentPrice\":"  + DoubleToString(OrderType() == OP_BUY ? SymbolInfoDouble(orderSymbol, SYMBOL_ASK) : SymbolInfoDouble(orderSymbol, SYMBOL_BID), symDigits) + ",";
         json += "\"closePrice\":null,";
         json += "\"closeTimeEpoch\":null,";
