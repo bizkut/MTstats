@@ -367,13 +367,21 @@ bool SendAllHistoricalTradesBatch() {
 //+------------------------------------------------------------------+
 void SendAccountSummary() {
     string summaryDataJson = "{";
-    summaryJson += "\"balance\":" + DoubleToString(AccountBalance(), 2) + ",";
-    summaryJson += "\"equity\":" + DoubleToString(AccountEquity(), 2) + ",";
-    summaryJson += "\"profit\":" + DoubleToString(AccountProfit(), 2) + ",";
-    summaryJson += "\"margin\":" + DoubleToString(AccountMargin(), 2) + ",";
-    summaryJson += "\"marginFree\":" + DoubleToString(AccountFreeMargin(), 2) + ",";
-    summaryJson += "\"marginLevel\":" + DoubleToString(AccountMarginLevel(), 2) + ",";
-    summaryJson += "\"currency\":\"" + EscapeJsonString(AccountCurrency()) + "\",";
+    summaryDataJson += "\"balance\":" + DoubleToString(AccountBalance(), 2) + ","; // Corrected typo: summaryJson to summaryDataJson
+    summaryDataJson += "\"equity\":" + DoubleToString(AccountEquity(), 2) + ",";
+    summaryDataJson += "\"profit\":" + DoubleToString(AccountProfit(), 2) + ",";
+    summaryDataJson += "\"margin\":" + DoubleToString(AccountMargin(), 2) + ",";
+    summaryDataJson += "\"marginFree\":" + DoubleToString(AccountFreeMargin(), 2) + ",";
+
+    double accMargin = AccountMargin();
+    double accEquity = AccountEquity();
+    double marginLevel = 0.0;
+    if (accMargin > 0) {
+        marginLevel = (accEquity / accMargin) * 100.0;
+    }
+    summaryDataJson += "\"marginLevel\":" + DoubleToString(marginLevel, 2) + ","; // Calculated Margin Level
+
+    summaryDataJson += "\"currency\":\"" + EscapeJsonString(AccountCurrency()) + "\",";
     summaryDataJson += "\"serverTimeEpoch\":" + (string)TimeCurrent(); // MT4 Server Time (UTC) as epoch
     summaryDataJson += "}";
 
@@ -494,7 +502,7 @@ string FormatOrderRecordJson(int ticket, int pool_mode) { // Changed ENUM_ORDER_
     json += "\"lots\":"          + DoubleToString(OrderLots(), MarketLotsDigits(orderSymbol)) + ",";
     json += "\"openPrice\":"     + DoubleToString(OrderOpenPrice(), symDigits) + ",";
     json += "\"openTimeEpoch\":" + (string)OrderOpenTime() + ",";
-    json += "\"openTimeString\":\""+ TimeToString(OrderOpenTime(), TIME_DATE|TIME_SECONDS|TIME_MILLISECONDS) + "\",";
+    json += "\"openTimeString\":\""+ TimeToString(OrderOpenTime(), TIME_DATE|TIME_SECONDS) + "\","; // Removed TIME_MILLISECONDS
     json += "\"stopLoss\":"      + DoubleToString(OrderStopLoss(), symDigits) + ",";
     json += "\"takeProfit\":"    + DoubleToString(OrderTakeProfit(), symDigits) + ",";
 
@@ -507,7 +515,7 @@ string FormatOrderRecordJson(int ticket, int pool_mode) { // Changed ENUM_ORDER_
         json += "\"currentPrice\":null,";
         json += "\"closePrice\":"    + DoubleToString(OrderClosePrice(), symDigits) + ",";
         json += "\"closeTimeEpoch\":"+ (string)OrderCloseTime() + ",";
-        json += "\"closeTimeString\":\""+ TimeToString(OrderCloseTime(), TIME_DATE|TIME_SECONDS|TIME_MILLISECONDS) + "\",";
+        json += "\"closeTimeString\":\""+ TimeToString(OrderCloseTime(), TIME_DATE|TIME_SECONDS) + "\","; // Removed TIME_MILLISECONDS
     }
 
     json += "\"commission\":"    + DoubleToString(OrderCommission(), 2) + ",";
