@@ -5,8 +5,16 @@
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2024, Trade Data Project"
 #property link      "https://example.com/tradesdata"
-#property version   "1.20_DBSync"
+#property version   "1.21_DBSync_Defines"
 #property strict
+
+//--- Define order type constants if not recognized by compiler (standard values)
+#ifndef OP_BALANCE
+#define OP_BALANCE 6
+#endif
+#ifndef OP_CREDIT
+#define OP_CREDIT 7
+#endif
 
 //--- Input parameters
 input string ServerBaseUrl = "http://127.0.0.1:3001/api/data"; // Base URL for the server API
