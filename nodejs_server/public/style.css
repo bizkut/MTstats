@@ -1,0 +1,192 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+.account-selector {
+    margin-bottom: 20px;
+}
+
+#accountIdSelect {
+    padding: 8px;
+    margin-left: 10px;
+    min-width: 200px;
+}
+
+#lastUpdated {
+    font-size: 0.9em;
+    color: #777;
+    margin-left: 15px;
+}
+
+section {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+section h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+#summaryContent p {
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+
+#summaryContent span {
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 600px; /* Adjust as needed */
+    margin: 20px auto; /* Center charts */
+    padding: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    th, td {
+        padding: 6px;
+        font-size: 0.8em;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    .account-selector label, #accountIdSelect {
+        display: block;
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 5px;
+    }
+     #accountIdSelect {
+        width: calc(100% - 16px); /* Account for padding */
+    }
+
+    .chart-container {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    table, thead, tbody, th, td, tr {
+        display: block; /* Force table to not be a table anymore */
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr { border: 1px solid #ccc; margin-bottom:5px; }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%; /* Space for data label */
+        white-space: normal;
+        text-align: left;
+    }
+
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align:left;
+        font-weight: bold;
+    }
+
+    /* Label Data */
+    #openTradesTable td:nth-of-type(1):before { content: "Ticket"; }
+    #openTradesTable td:nth-of-type(2):before { content: "Symbol"; }
+    #openTradesTable td:nth-of-type(3):before { content: "Type"; }
+    #openTradesTable td:nth-of-type(4):before { content: "Lots"; }
+    #openTradesTable td:nth-of-type(5):before { content: "Open Price"; }
+    #openTradesTable td:nth-of-type(6):before { content: "Open Time"; }
+    #openTradesTable td:nth-of-type(7):before { content: "SL"; }
+    #openTradesTable td:nth-of-type(8):before { content: "TP"; }
+    #openTradesTable td:nth-of-type(9):before { content: "Current Price"; }
+    #openTradesTable td:nth-of-type(10):before { content: "Profit"; }
+    #openTradesTable td:nth-of-type(11):before { content: "Comment"; }
+
+    #closedTradesTable td:nth-of-type(1):before { content: "Ticket"; }
+    #closedTradesTable td:nth-of-type(2):before { content: "Symbol"; }
+    #closedTradesTable td:nth-of-type(3):before { content: "Type"; }
+    #closedTradesTable td:nth-of-type(4):before { content: "Lots"; }
+    #closedTradesTable td:nth-of-type(5):before { content: "Open Price"; }
+    #closedTradesTable td:nth-of-type(6):before { content: "Open Time"; }
+    #closedTradesTable td:nth-of-type(7):before { content: "Close Price"; }
+    #closedTradesTable td:nth-of-type(8):before { content: "Close Time"; }
+    #closedTradesTable td:nth-of-type(9):before { content: "Profit"; }
+    #closedTradesTable td:nth-of-type(10):before { content: "Comment"; }
+}

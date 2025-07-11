@@ -1,0 +1,22 @@
+{
+  "name": "trades-data-server",
+  "version": "1.0.0",
+  "description": "Node.js server for MT4 trade data",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"No tests available\""
+  },
+  "keywords": [
+    "mt4",
+    "nodejs",
+    "trading"
+  ],
+  "author": "AI Agent",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.16.3",
+    "ws": "^8.18.3"
+  }
+}

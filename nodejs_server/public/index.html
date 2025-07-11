@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT4 Trade Data Viewer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MT4 Trade Data Viewer</h1>
+            <div class="account-selector">
+                <label for="accountIdSelect">Select Account:</label>
+                <select id="accountIdSelect"></select>
+                <span id="lastUpdated"></span>
+            </div>
+        </header>
+
+        <section id="accountSummarySection">
+            <h2>Account Summary</h2>
+            <div id="summaryContent">
+                <p>Loading summary...</p>
+            </div>
+        </section>
+
+        <section id="chartsSection">
+            <h2>Charts</h2>
+            <div class="chart-container">
+                <canvas id="openTradesBySymbolChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="closedTradesProfitChart"></canvas>
+            </div>
+        </section>
+
+        <section id="openTradesSection">
+            <h2>Open Trades (<span id="openTradesCount">0</span>)</h2>
+            <table id="openTradesTable">
+                <thead>
+                    <tr>
+                        <th>Ticket</th>
+                        <th>Symbol</th>
+                        <th>Type</th>
+                        <th>Lots</th>
+                        <th>Open Price</th>
+                        <th>Open Time</th>
+                        <th>SL</th>
+                        <th>TP</th>
+                        <th>Current Price</th>
+                        <th>Profit</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be added by script.js -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="closedTradesSection">
+            <h2>Closed Trades (<span id="closedTradesCount">0</span>)</h2>
+            <table id="closedTradesTable">
+                <thead>
+                    <tr>
+                        <th>Ticket</th>
+                        <th>Symbol</th>
+                        <th>Type</th>
+                        <th>Lots</th>
+                        <th>Open Price</th>
+                        <th>Open Time</th>
+                        <th>Close Price</th>
+                        <th>Close Time</th>
+                        <th>Profit</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be added by script.js -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

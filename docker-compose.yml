@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg14 # Using PostgreSQL 14 base
+    container_name: trades_timescaledb
+    ports:
+      - "5432:5432" # Default PostgreSQL port
+    environment:
+      POSTGRES_USER: tradeuser
+      POSTGRES_PASSWORD: tradepassword
+      POSTGRES_DB: tradesdb
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data # Persistent data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - trades_network
+
+  trades-viewer: # Node.js application
+    build:
+      context: ./nodejs_server
+      dockerfile: Dockerfile
+    image: trades-data-viewer-app
+    container_name: trades_data_viewer_container
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+      DATABASE_HOST: timescaledb # Service name of the database container
+      DATABASE_PORT: 5432
+      DATABASE_USER: tradeuser
+      DATABASE_PASSWORD: tradepassword
+      DATABASE_NAME: tradesdb
+      # For WebSocket URL construction on client, if needed by server (usually client figures it out)
+      # WEBSOCKET_URL: ws://localhost:3001
+    depends_on:
+      timescaledb:
+        condition: service_healthy # Wait for DB to be healthy
+    # For development, you might want to mount volumes to reflect code changes:
+    # volumes:
+    #   - ./nodejs_server:/usr/src/app
+    #   - /usr/src/app/node_modules # Exclude node_modules from being overwritten by host mount
+    restart: unless-stopped
+    networks:
+      - trades_network
+
+volumes:
+  timescaledb_data: # Defines the named volume for data persistence
+
+networks:
+  trades_network:
+    driver: bridge
